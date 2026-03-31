@@ -2,19 +2,19 @@ import mongoose, {Document,mongo,Schema} from "mongoose";
 
 
 export interface IAddress{
-    street:String;
-    city:String;
-    state:String;
-    pincode :String;
+    street:string;
+    city:string;
+    state:string;
+    pincode :string;
     country:string;
 }
 
 export interface IUser extends Document{
-    name :String;
-    email:String;
-    password:String;
-    Avatar?:String;
-    phone?:String;
+    name :string;
+    email:string;
+    password:string;
+    Avatar?:string;
+    phone?:string;
     role:"user"|"admin";
     addresses:IAddress[];
     createdAt:Date;

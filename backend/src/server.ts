@@ -1,6 +1,6 @@
 import express from 'express'
 import { connectDB } from './config/db.js';
-import authRoutes from './routes/auth.route.js'
+import authRoutes from './routes/auth.routes.js'
 
 const PORT = process.env.PORT || 5000;
 

@@ -51,7 +51,7 @@ const userSchema = new Schema<IUser>({
    role:{
     type:String,
     enum:["user","admin"],
-    default:"user"
+    default:"admin"
    },
    addresses:[AddressSchema],
 

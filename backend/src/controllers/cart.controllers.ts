@@ -4,15 +4,42 @@ import type{ AuthRequest } from "../types/authrequest.js";
 
 export const addToCart = async(req:AuthRequest, res:Response)=>{
     try {
-        const {product , quantity, size, color} = req.body;
+        const {productId , quantity, size, color} = req.body;
 
         const userId = req.user!.id;
 
         let cart = await Cart.findOne({user:userId})
 
+        if(!cart){
+            cart = await Cart.create({
+                user:req.user!.id,
+                items:[{product:productId,quantity, size,color }]
+            });
+        }else{
+            const itemIndex = cart.items.findIndex(
+                (item)=>{
+                    item.product.toString()===productId&&
+                    item.size===size && 
+                    item.color===color
+                }
+            );
+
+            if(itemIndex>-1){
+                cart.items[itemIndex]!.quantity+=quantity;
+
+            }else{
+                cart.items.push({product:productId,quantity,size,color});
+            }
+            await cart.save();
+        }
+
+        res.json({
+            sucess:true,
+            cart,
+        })
         
 
-    } catch (error) {
-        
+    } catch (error:any) {
+        res.status(500).json({message: error.message})
     }
 }

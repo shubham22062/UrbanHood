@@ -2,6 +2,7 @@ import express from 'express'
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.routes.js'
 import productRoutes from './routes/product.routes.js'
+import cartRoutes from './routes/cart.routes.js'
 
 const PORT = process.env.PORT || 5000;
 
@@ -16,6 +17,8 @@ connectDB();
 app.use("/api/auth" , authRoutes)
 
 app.use("/api/products", productRoutes);
+
+app.use("/api/cart", cartRoutes);
 
 
 app.get("/",(req,res)=>{

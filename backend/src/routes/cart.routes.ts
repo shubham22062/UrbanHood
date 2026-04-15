@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 
 import { addToCart,removeCartItem,getCart,updateCartItem } from "../controllers/cart.controllers.js";
 
@@ -13,3 +13,5 @@ router.get("/",protect,getCart);
 router.put("/", protect,updateCartItem);
 
 router.delete("/:productId", protect,removeCartItem)
+
+export default router;

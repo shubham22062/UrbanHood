@@ -43,3 +43,15 @@ export const addToCart = async(req:AuthRequest, res:Response)=>{
         res.status(500).json({message: error.message})
     }
 }
+
+export const getCart = async(req:AuthRequest, res:Response)=>{
+    try {
+        const cart = await Cart.findOne({user:req.user!.id}).populate("items.product");
+        res.json({
+            sucess:true,
+            cart,
+        });
+    } catch (error:any) {
+        res.status(500).json({message:error.message});
+    }
+}

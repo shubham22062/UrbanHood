@@ -56,7 +56,7 @@ export const getCart = async(req:AuthRequest, res:Response)=>{
     }
 }
 
-export const updateCart = async(req:AuthRequest, res:Response)=>{
+export const updateCartItem = async(req:AuthRequest, res:Response)=>{
     try {
        const{productId, quantity} = req.body;
        const cart = await Cart.findOne({user:req.user!.id})

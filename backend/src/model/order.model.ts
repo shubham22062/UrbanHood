@@ -52,3 +52,5 @@ const orderSchema = new Schema({
         default:"processing",
     },
 },{timestamps:true})
+
+export const Order = mongoose.model<IOrder>("Order",orderSchema);

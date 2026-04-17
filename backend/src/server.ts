@@ -4,6 +4,7 @@ import authRoutes from './routes/auth.routes.js'
 import productRoutes from './routes/product.routes.js'
 import cartRoutes from './routes/cart.routes.js'
 import orderRoutes from './routes/order.routes.js'
+import addressRoutes from './routes/address.routes.js'
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,6 +23,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 
 app.use("/api/order", orderRoutes);
+
+app.use("/api/address", addressRoutes);
 
 
 app.get("/",(req,res)=>{

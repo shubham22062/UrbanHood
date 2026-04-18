@@ -7,11 +7,21 @@ interface IOrderItem{
     color:string;
 }
 
+interface IShippingAddress{
+    name:string;
+    phone:string;
+    addressLine:string;
+    city:string;
+    state:string;
+    pincode:string;
+    country:string;
+}
+
 export interface IOrder extends Document{
     user:mongoose.Types.ObjectId;
     items:IOrderItem[];
     totalPrice:number;
-    shippingAddress:string;
+    shippingAddress:IShippingAddress;
     paymentStatus:string;
     orderStatus:string;
 }
@@ -38,8 +48,13 @@ const orderSchema = new Schema({
         required:true,
     },
     shippingAddress:{
-        type:String,
-        required:true,
+        name:String,
+        phone:String,
+        addressLine:String,
+        city:String,
+        state:String,
+        pincode:String,
+        country:String,
     },
     paymentStatus:{
         type:String,
@@ -48,7 +63,7 @@ const orderSchema = new Schema({
     },
     orderStatus:{
         type:String,
-        enum:["processing", "shipped", "deliverd"],
+        enum:["processing", "shipped", "delivered"],
         default:"processing",
     },
 },{timestamps:true})

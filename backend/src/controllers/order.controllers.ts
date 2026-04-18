@@ -2,11 +2,17 @@ import type{ Response } from "express";
 import { Order } from "../model/order.model.js";
 import { Cart } from "../model/cart.model.js";
 import type{ AuthRequest } from "../types/authrequest.js";
+import { Address } from "../model/address.model.js";
 
 
 export const placeOrder = async(req:AuthRequest, res:Response)=>{
     try {
-        const {shippingAddress} = req.body;
+        const {addressId} = req.body;
+        const address = await Address.findById(addressId);
+
+        if(!address){
+            return res.status(404).json({message:"address not found!!"})
+        }
         const cart = await Cart.findOne({user:req.user!.id}).populate("items.product")
 
         if(!cart || cart.items.length===0){
@@ -21,7 +27,15 @@ export const placeOrder = async(req:AuthRequest, res:Response)=>{
             user:req.user!.id,
             items:cart.items,
             totalPrice,
-            shippingAddress,
+            shippingAddress:{
+                name:address.name,
+                phone:address.phone,
+                addressLine:address.addressLine,
+                city:address.city,
+                state:address.state,
+                pincode:address.pincode,
+                country:address.country,
+            }
         });
 
         cart.items=[];
